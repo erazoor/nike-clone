@@ -1,22 +1,10 @@
 import { createStore } from 'vuex';
+import productsModule from './modules/products/index';
 
 const store = createStore({
-  state: {
-    selectedColor: []
-  },
-  mutations: {
-    setColor(state, payload) {
-      state.selectedColor = payload;
-    },
-  },
-  actions: {
-    
-  },
-  getters: {
-    getColor(state) {
-      return state.selectedColor;
-    }
-  },
+  modules: {
+    products: productsModule
+  }
 });
 
 export default store;

@@ -1,5 +1,5 @@
 <script setup>
-import FilterTav from '../components/FilterTav.vue';
+import FilterTab from '../components/FilterTab.vue';
 import ProductList from '../components/ProductList.vue';
 import HeaderBand from '../components/HeaderBand.vue';
 </script>
@@ -10,7 +10,7 @@ import HeaderBand from '../components/HeaderBand.vue';
   </header>
   <main>
     <aside>
-      <FilterTav />
+      <FilterTab />
     </aside>
     <section id="product-list">
       <ProductList />
