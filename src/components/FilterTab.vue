@@ -4,7 +4,11 @@
 
 <template>
     <div>
-        <h2>{{ countSelectedFilters > 1 ? `Sexes (${countSelectedFilters})` : `Sexe (${countSelectedFilters})` }}</h2>
+        <hr>
+        <div class="head-title">
+            <h2 class="title">{{ countSelectedFilters > 1 ? `Sexes (${countSelectedFilters})` : `Sexe (${countSelectedFilters})` }}</h2>
+            <img src="../assets/svgs/chevron.svg" alt="chevron" class="chevron" />
+        </div>
         <div>
             <input type="checkbox" name="men" @change="checkFilters($event)" id="men" checked>
             <span>Hommes</span>
@@ -19,7 +23,11 @@
         </div>
     </div>
     <div>
-        <h2>Rechercher par prix ({{ countSelectedRanges }})</h2>
+        <hr>
+        <div class="head-title">
+            <h2 class="title">Rechercher par prix ({{ countSelectedRanges }})</h2>
+            <img src="../assets/svgs/chevron.svg" alt="chevron" class="chevron" />
+        </div>
         <div>
             <input type="checkbox" name="fifty" @change="checkRanges($event)" id="fifty" checked>
             <span>Moins €50</span>
@@ -38,7 +46,11 @@
         </div>
     </div>
     <div>
-        <h2>{{ countSelectedColors > 1 ? `Couleurs (${countSelectedColors})` : `Couleur (${countSelectedColors})` }}</h2>
+        <hr>
+        <div class="head-title">
+            <h2 class="title">{{ countSelectedColors > 1 ? `Couleurs (${countSelectedColors})` : `Couleur (${countSelectedColors})` }}</h2>
+            <img src="../assets/svgs/chevron.svg" alt="chevron" class="chevron" />
+        </div>
         <div>
             <input type="checkbox" name="pourpre" @change="checkColors($event)" id="pourpre">
             <span>Pourpre</span>
@@ -85,7 +97,11 @@
         </div>
     </div>
     <div>
-        <h2>{{ countSelectedSports > 1 ? `Sports (${countSelectedSports})` : `Sport (${countSelectedSports})` }}</h2>
+        <hr>
+        <div class="head-title">
+            <h2 class="title">{{ countSelectedSports > 1 ? `Sports (${countSelectedSports})` : `Sport (${countSelectedSports})` }}</h2>
+            <img src="../assets/svgs/chevron.svg" alt="chevron" class="chevron" />
+        </div>
         <div>
             <input type="checkbox" name="basket" @change="checkSports($event)" id="basket" checked>
             <span>Basket</span>
@@ -165,5 +181,34 @@
 </script>
 
 <style scoped>
+.head-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+hr {
+    opacity: .5;
+    margin: 1rem 0;
+}
+
+.title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.chevron {
+    rotate: -90deg;
+}
+
+input[type='checkbox'] {
+    margin-right: 5px;
+}
+
+input[type='checkbox']:checked {
+    accent-color: #111111;
+}
 
 </style>

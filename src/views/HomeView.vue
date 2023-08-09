@@ -5,18 +5,25 @@
 </script>
 
 <template>
-  <header class="header">
-    <header-band />
-    {{ getCurrentProductDisplayed() }}
-  </header>
-  <main class="main">
-    <aside class="filter-tab">
-      <filter-tab @check-color="updateDataByColor" @check-range="updateDataByRange"  @check-filter="updateDataByFilter" @check-sport="updateDataBySport"></filter-tab>
-    </aside>
-    <section class="product-list" v-if="displayProductsList">
-      <product-list v-for="product in displayProductsList" :key="product.article" :productData="product"></product-list>
-    </section>
-  </main>
+  <body class="content">
+    <header class="header">
+      <header-band
+        :selectedFilters="{
+          filteredProducts: filteredProducts,
+          coloredProducts: coloredProducts,
+        }"
+        :currentProductDisplayed="getCurrentProductDisplayed()"
+      />
+    </header>
+    <main class="main">
+      <aside class="filter-tab">
+        <filter-tab @check-color="updateDataByColor" @check-range="updateDataByRange"  @check-filter="updateDataByFilter" @check-sport="updateDataBySport"></filter-tab>
+      </aside>
+      <section class="product-list" v-if="displayProductsList">
+        <product-list v-for="product in displayProductsList" :key="product.article" :productData="product"></product-list>
+      </section>
+    </main>
+  </body>
 </template>
 
 <script>
@@ -98,25 +105,42 @@
 
 <style scoped>
 header {
-  background-color: #f3f3f3;
+  background-color: #fff;
   height: 80px;
   width: auto;
 }
 
-main {
+.main {
   display: flex;
   flex-direction: row;
 }
 
-aside {
-  background-color: #f3f3f3;
-  width: 20%;
+.filter-tab {
+  background-color: #fff;
+  width: 15rem;
   height: auto;
+  margin: 0 0 1em 10rem;
 }
 
-section {
-  background-color: #f3f3f3;
-  width: 80%;
+.product-list {
+  background-color: #fff;
+  width: 75%;
   height: auto;
+  padding-right: 2.5rem;
+  padding-left: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 1rem;
 }
+
+@media screen and (max-width: 768px) {
+    .filter-tab {
+      display: none;
+    }
+
+    .product-list {
+      width: 100%;
+    }
+}
+
 </style>
