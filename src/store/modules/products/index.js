@@ -7,7 +7,7 @@ const actions = {};
 const getters = {
     displayProducts(state) {
         return state.products;
-    }
+    },
 };
 
 export default {

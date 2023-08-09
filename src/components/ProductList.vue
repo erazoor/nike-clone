@@ -1,14 +1,11 @@
 <template>
     <div>
-        <h1>Product List</h1>
-        <ul>
-            <li v-for="product in validProducts" :key="product.article" class="product-card">
-                <img :src="product.imageUrl" :alt="product.article">
-                <span>{{ product.article }}</span>
-                <span>{{ getGenderLabel(product.sexe) }}</span>
-                <span>{{ getColors(product.couleur) > 1 ? `${getColors(product.couleur)} couleurs` : `${getColors(product.couleur)} couleur` }}</span>
-                <span>{{ product.prix }}</span>
-            </li>
+        <ul class="product-card">
+            <img :src="productData.imageUrl" :alt="displayProductArticle">
+            <span>{{ displayProductArticle }}</span>
+            <span>{{ getGenderLabel(displayProductGender) }}</span>
+            <span>{{ getColors(displayProductColors) > 1 ? `${getColors(displayProductColors)} couleurs` : `${getColors(displayProductColors)} couleur` }}</span>
+            <span>{{ displayProductPrice }}</span>
         </ul>
     </div>
 </template>
@@ -16,31 +13,38 @@
 <script>
     export default {
         name: 'ProductList',
-        computed: {
-            displayProducts() {
-                return this.$store.getters['products/displayProducts']
-            },
-            validProducts() {
-                return this.displayProducts.filter(this.isProductValid);
+        props: ['productData'],
+        data() {
+            return {
+                
+            };
+        },
+        async created() {
+            try {
+                this.productData.imageUrl = await this.getImageUrl(this.productData.photo);
+            } catch (error) {
+                console.error("Error processing product data:", error);
             }
         },
-        created() {
-            this.validProducts.forEach(async (product) => {
-                product.imageUrl = await this.getImageUrl(product.photo);
-            });
-        },
-        methods: {
-            async getImageUrl(photo) {
-                try {
-                    const photoWithoutExtension = photo.replace(/\.[^.]+$/, ''); 
-                    const imageModule = await import(`@/assets/images/products/${photoWithoutExtension}.webp`)
-                        .then((image) => image.default);
-                    return imageModule;
-                } catch (error) {
-                    console.error(`Failed to load image for ${photo}`, error);
-                    return ''; 
-                }
+        props: ['productData'],
+        computed: {
+            displayProductImage() {
+                return this.productData.photo;
             },
+            displayProductArticle() {
+                return this.productData.article;
+            },
+            displayProductGender() {
+                return this.productData.sexe;
+            },
+            displayProductColors() {
+                return this.productData.couleur;
+            },
+            displayProductPrice() {
+                return this.productData.prix;
+            },
+        }, 
+        methods: {
             getGenderLabel(sexe) {
                 if (sexe === 'Homme') {
                     return 'Chaussure pour Homme';
@@ -53,9 +57,18 @@
             getColors(couleur) {
                 return couleur.split(',').length;
             },
-            isProductValid(product) {
-                return product.article && product.sexe && product.couleur && product.prix && product.photo;
-            }
+
+            async getImageUrl(photo) {
+                try {
+                    const photoWithoutExtension = photo.replace(/\.[^.]+$/, ''); 
+                    const imageModule = await import(`@/assets/images/products/webp/${photoWithoutExtension}.webp`)
+                        .then((image) => image.default);
+                    return imageModule;
+                } catch (error) {
+                    console.error(`Failed to load image for ${photo}`, error);
+                    return ''; 
+                }
+            },
         }
     }
 </script>
@@ -68,7 +81,7 @@
         justify-content: center;
         border: 1px solid black;
         width: 200px;
-        height: 200px;
+        height: 400px;
         margin: 10px;
     }
 
