@@ -1,13 +1,11 @@
 <template>
-    <div>
-        <ul class="product-card">
-            <img :src="productData.imageUrl" :alt="displayProductArticle">
-            <span>{{ displayProductArticle }}</span>
-            <span>{{ getGenderLabel(displayProductGender) }}</span>
-            <span>{{ getColors(displayProductColors) > 1 ? `${getColors(displayProductColors)} couleurs` : `${getColors(displayProductColors)} couleur` }}</span>
-            <span>{{ displayProductPrice }}</span>
-        </ul>
-    </div>
+    <ul class="product-card">
+        <img :src="productData.imageUrl" :alt="displayProductArticle">
+        <span class="article">{{ displayProductArticle }}</span>
+        <span class="label">{{ getGenderLabel(displayProductGender) }}</span>
+        <span class="label">{{ getColors(displayProductColors) > 1 ? `${getColors(displayProductColors)} couleurs` : `${getColors(displayProductColors)} couleur` }}</span>
+        <span class="article">{{ displayProductPrice }}</span>
+    </ul>
 </template>
 
 <script>
@@ -77,16 +75,37 @@
     .product-card {
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
-        border: 1px solid black;
-        width: 200px;
-        height: 400px;
-        margin: 10px;
+        padding: 0;
+        width: 100%;
+        height: auto;
+        margin: 2.5rem 0;
+    }
+
+    .product-card span {
+        margin: .15rem;
+    }
+
+    .article {
+        padding-top: .5rem;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    .label {
+        font-size: .85rem;
+        font-weight: 400;
+        opacity: .5;
     }
 
     .product-card img {
-        width: 100px;
-        height: 100px;
+        width: 100%;
+        height: auto;
     }
+
+    @media screen and (min-width: 768px) {
+        
+    }
+
 </style>
