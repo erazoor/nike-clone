@@ -133,4 +133,14 @@ header {
   gap: 0 1rem;
 }
 
+@media screen and (max-width: 768px) {
+    .filter-tab {
+      display: none;
+    }
+
+    .product-list {
+      width: 100%;
+    }
+}
+
 </style>

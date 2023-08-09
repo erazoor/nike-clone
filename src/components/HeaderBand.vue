@@ -11,6 +11,7 @@
                     currentProductDisplayed
                 }})
         </span>
+        <img src="../assets/svgs/burger.svg" class="burger" alt="Burger" />
     </div>
 </template>
   
@@ -46,6 +47,29 @@
     font-size: 1.2rem;
     font-weight: bold;
     margin: 0 0 0 10rem;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.burger {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        margin: 0 0 0 2.5rem;
+    }
+
+    .burger {
+        display: block;
+        width: 1.5rem;
+        height: 1.5rem;
+        margin: 0 2.5rem 0 0;
+    }
 }
 </style>
   
