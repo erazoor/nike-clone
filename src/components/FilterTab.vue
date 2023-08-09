@@ -1,5 +1,36 @@
 <script setup>
+    const colors = [
+        { id: 'pourpre', label: 'Pourpre' },
+        { id: 'noir', label: 'Noir' },
+        { id: 'rouge', label: 'Rouge' },
+        { id: 'orange', label: 'Orange' },
+        { id: 'bleu', label: 'Bleu' },
+        { id: 'blanc', label: 'Blanc' },
+        { id: 'marron', label: 'Marron' },
+        { id: 'vert', label: 'Vert' },
+        { id: 'jaune', label: 'Jaune' },
+        { id: 'gris', label: 'Gris' },
+        { id: 'multicolore', label: 'Multicolore' },
+    ];
 
+    const genders = [
+        { id: 'men', label: 'Hommes' },
+        { id: 'women', label: 'Femmes' },
+        { id: 'unisex', label: 'Mixte' },
+    ];
+
+    const priceRanges = [
+        { id: 'fifty', label: 'Moins €50' },
+        { id: 'fiftytohundred', label: '€50 - €100' },
+        { id: 'hundredtofifty', label: '€100 - €150' },
+        { id: 'hundredfifty', label: 'Plus de €150' },
+    ];
+
+    const sports = [
+        { id: 'basket', label: 'Basket' },
+        { id: 'football', label: 'Football' },
+        { id: 'running', label: 'Running' },
+    ];
 </script>
 
 <template>
@@ -9,17 +40,15 @@
             <h2 class="title">{{ countSelectedFilters > 1 ? `Sexes (${countSelectedFilters})` : `Sexe (${countSelectedFilters})` }}</h2>
             <img src="../assets/svgs/chevron.svg" alt="chevron" class="chevron" />
         </div>
-        <div>
-            <input type="checkbox" name="men" @change="checkFilters($event)" id="men" checked>
-            <span>Hommes</span>
-        </div>
-        <div>
-            <input type="checkbox" name="women" @change="checkFilters($event)" id="women" checked>
-            <span>Femmes</span>
-        </div>
-        <div>
-            <input type="checkbox" name="unisex" @change="checkFilters($event)" id="unisex" checked>
-            <span>Mixte</span>
+        <div v-for="gender in genders" :key="gender.id">
+            <input
+                type="checkbox"
+                :name="gender.id"
+                @change="checkFilters($event)"
+                :id="gender.id"
+                :checked="checkedFilterValues.includes(gender.id)"
+            />
+            <span>{{ gender.label }}</span>
         </div>
     </div>
     <div>
@@ -28,21 +57,15 @@
             <h2 class="title">Rechercher par prix ({{ countSelectedRanges }})</h2>
             <img src="../assets/svgs/chevron.svg" alt="chevron" class="chevron" />
         </div>
-        <div>
-            <input type="checkbox" name="fifty" @change="checkRanges($event)" id="fifty" checked>
-            <span>Moins €50</span>
-        </div>
-        <div>
-            <input type="checkbox" name="fiftytohundred" @change="checkRanges($event)" id="fiftytohundred" checked>
-            <span>€50 - €100</span>
-        </div>
-        <div>
-            <input type="checkbox" name="hundredtofifty" @change="checkRanges($event)" id="hundredtofifty" checked>
-            <span>€100 - €150</span>
-        </div>
-        <div>
-            <input type="checkbox" name="hundredfifty" @change="checkRanges($event)" id="hundredfifty" checked>
-            <span>Plus de €150</span>
+        <div v-for="range in priceRanges" :key="range.id">
+            <input
+                type="checkbox"
+                :name="range.id"
+                @change="checkRanges($event)"
+                :id="range.id"
+                :checked="checkedRangeValues.includes(range.id)"
+            />
+            <span>{{ range.label }}</span>
         </div>
     </div>
     <div>
@@ -52,48 +75,16 @@
             <img src="../assets/svgs/chevron.svg" alt="chevron" class="chevron" />
         </div>
         <div>
-            <input type="checkbox" name="pourpre" @change="checkColors($event)" id="pourpre">
-            <span>Pourpre</span>
-        </div>
-        <div>
-            <input type="checkbox" name="noir" @change="checkColors($event)" id="noir">
-            <span>Noir</span>
-        </div>
-        <div>
-            <input type="checkbox" name="rouge" @change="checkColors($event)" id="rouge">
-            <span>Rouge</span>
-        </div>
-        <div>
-            <input type="checkbox" name="orange" @change="checkColors($event)" id="orange">
-            <span>Orange</span>
-        </div>
-        <div>
-            <input type="checkbox" name="bleu" @change="checkColors($event)" id="bleu">
-            <span>Bleu</span>
-        </div>
-        <div>
-            <input type="checkbox" name="blanc" @change="checkColors($event)" id="blanc">
-            <span>Blanc</span>
-        </div>
-        <div>
-            <input type="checkbox" name="marron" @change="checkColors($event)" id="marron">
-            <span>Marron</span>
-        </div>
-        <div>
-            <input type="checkbox" name="vert" @change="checkColors($event)" id="vert">
-            <span>Vert</span>
-        </div>
-        <div>
-            <input type="checkbox" name="jaune" @change="checkColors($event)" id="jaune">
-            <span>Jaune</span>
-        </div>
-        <div>
-            <input type="checkbox" name="gris" @change="checkColors($event)" id="gris">
-            <span>Gris</span>
-        </div>
-        <div>
-            <input type="checkbox" name="multicolore" @change="checkColors($event)" id="multicolore">
-            <span>Multicolore</span>
+            <div v-for="(color, index) in colors" :key="index">
+                <input
+                    type="checkbox"
+                    :name="color.id"
+                    @change="checkColors($event)"
+                    :id="color.id"
+                    :checked="checkedColorValues.includes(color.id)"
+                />
+                <span>{{ color.label }}</span>
+            </div>
         </div>
     </div>
     <div>
@@ -102,17 +93,15 @@
             <h2 class="title">{{ countSelectedSports > 1 ? `Sports (${countSelectedSports})` : `Sport (${countSelectedSports})` }}</h2>
             <img src="../assets/svgs/chevron.svg" alt="chevron" class="chevron" />
         </div>
-        <div>
-            <input type="checkbox" name="basket" @change="checkSports($event)" id="basket" checked>
-            <span>Basket</span>
-        </div>
-        <div>
-            <input type="checkbox" name="football" @change="checkSports($event)" id="football" checked>
-            <span>Football</span>
-        </div>
-        <div>
-            <input type="checkbox" name="running" @change="checkSports($event)" id="running" checked>
-            <span>Running</span>
+        <div v-for="sport in sports" :key="sport.id">
+            <input
+                type="checkbox"
+                :name="sport.id"
+                @change="checkSports($event)"
+                :id="sport.id"
+                :checked="checkedSportValues.includes(sport.id)"
+            />
+            <span>{{ sport.label }}</span>
         </div>
     </div>
 </template>

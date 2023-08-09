@@ -12,7 +12,7 @@
           filteredProducts: filteredProducts,
           coloredProducts: coloredProducts,
         }"
-        :currentProductDisplayed="getCurrentProductDisplayed()"
+        :currentProductDisplayed="getCurrentProductDisplayed().toString()"
       />
     </header>
     <main class="main">

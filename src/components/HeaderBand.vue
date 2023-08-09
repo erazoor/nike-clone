@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <span v-if="selectedFilters.filteredProducts.length || selectedFilters.coloredProducts.length">
+        <span v-if="selectedFilters.filteredProducts.length.toString || selectedFilters.coloredProducts.length">
             Nouveautés {{ 
                     formatGenderFilters(selectedFilters.filteredProducts).join(', ')
                 }}
